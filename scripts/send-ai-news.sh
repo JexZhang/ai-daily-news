@@ -8,21 +8,33 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-[ -f "${SCRIPT_DIR}/.env" ] && set -a && source "${SCRIPT_DIR}/.env" && set +a
+PROJECT_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
+[ -f "${PROJECT_DIR}/.env" ] && set -a && source "${PROJECT_DIR}/.env" && set +a
 
 FEISHU_WEBHOOK="${FEISHU_WEBHOOK:?请设置环境变量 FEISHU_WEBHOOK，参考 .env.example}"
 
 NEWS_JSON="${1:?用法: $0 '{\"chi\":[...],\"foreign\":[...]}'}"
 
+# ---------- 前置校验（schema / 日期 / 链接可达性）----------
+# 校验失败立即中止，错误详情已由 validate-news.py 输出到 stderr，
+# 供上游模型读取后修正 JSON 重试。
+if ! python3 "${SCRIPT_DIR}/validate-news.py" "${NEWS_JSON}"; then
+    echo "" >&2
+    echo "发送已中止：前置校验未通过。请根据上方 [validate] 报告修正 JSON 后重试。" >&2
+    exit 2
+fi
+
 # 构造飞书卡片消息
 export NEWS_JSON
 PAYLOAD=$(python3 << 'PYEOF'
 import os, json, datetime
+from zoneinfo import ZoneInfo
 
 data = json.loads(os.environ["NEWS_JSON"])
 chi_list = data.get("chi", [])
 foreign_list = data.get("foreign", [])
-today = datetime.date.today().strftime("%-m月%-d日")
+# 标题使用北京时间今天的日期，保证海外时区运行时也符合预期
+today = datetime.datetime.now(ZoneInfo("Asia/Shanghai")).strftime("%-m月%-d日")
 
 
 def build_news_item(item, color):

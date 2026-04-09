@@ -1,4 +1,4 @@
-# AI Daily News Bot (Claude Code Skill)
+# ai-daily-news (Claude Code Skill)
 
 一个 Claude Code Skill —— 每日自动搜索 AI 行业热点新闻（国内外各 3 条），通过飞书机器人推送精美卡片消息到群聊。
 

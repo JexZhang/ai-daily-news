@@ -9,18 +9,22 @@ description: Search the top AI industry news from yesterday (3 international + 3
 
 ## 执行流程
 
-1. 按搜索策略多轮搜索，筛选出昨天发布的国内外 AI 热点新闻
+1. 按搜索策略多轮搜索，筛选出**北京时间昨天**发布的国内外 AI 热点新闻
 2. 国外 3 条 + 国内 3 条，各自按重要程度排序
-3. 构造 JSON 数组
-4. 调用本 Skill 目录下的 `send-ai-news.sh` 推送到飞书
+3. 构造 JSON 对象（每条新闻**必须包含 `date` 字段**，值为北京时间昨天 `YYYY-MM-DD`）
+4. 调用本 Skill 目录下的 `scripts/send-ai-news.sh` 推送到飞书
+   - 脚本会**自动先调用 `scripts/validate-news.py`** 做三层校验（schema / 日期 / 链接可达性）
+   - 任一校验不通过则立即中止发送，错误详情输出到 stderr
+   - 若校验失败，**根据错误报告修正 JSON 后重试**，不要手动跳过校验
 
 ## 任务要求
 
-搜索**昨天**（相对于今天的前一天）发布的 AI 行业最重要的 6 条热点新闻：
+搜索**北京时间昨天**（北京时间今天的前一天）发布的 AI 行业最重要的 6 条热点新闻：
 - **国外 AI 新闻 3 条**（海外公司、机构、政策相关）
 - **国内 AI 新闻 3 条**（中国大陆公司、机构、政策相关）
 - 按重要程度排序输出
-- 发布时间必须是昨天，不接受更早的新闻
+- 发布时间必须是北京时间昨天，不接受更早或更晚的新闻
+- 注意海外新闻时区换算：例如美西时间当天深夜发布的新闻，换算到北京时间可能已是次日，应以**北京时间**为准判断
 
 ## 搜索策略（必须执行多轮搜索）
 
@@ -58,10 +62,14 @@ description: Search the top AI industry news from yesterday (3 international + 3
 
 ## 推送到飞书
 
-完成搜索和筛选后，调用本 Skill 目录下的 `send-ai-news.sh` 脚本：
+在推送前，需确保存在飞书 Webhook 配置：
+1. 首先检查项目根目录下的 `.env` 文件是否包含 `FEISHU_WEBHOOK` 变量
+2. 如果 `.env` 文件不存在或未配置 `FEISHU_WEBHOOK`，则向用户询问获取
+
+完成搜索和筛选后，调用本 scripts 目录下的 `send-ai-news.sh` 脚本：
 
 ```bash
-bash <SKILL_DIR>/send-ai-news.sh '<JSON对象>'
+bash <SKILL_DIR>/scripts/send-ai-news.sh '<JSON对象>'
 ```
 
 其中 `<SKILL_DIR>` 是本 SKILL.md 所在目录。
@@ -74,40 +82,61 @@ bash <SKILL_DIR>/send-ai-news.sh '<JSON对象>'
 - `chi`：国内新闻数组，3 条，按重要程度排序
 - `foreign`：国际新闻数组，3 条，按重要程度排序
 
-每条新闻结构：
+每条新闻结构（**所有字段均必填**）：
 
 ```json
 {
   "title": "新闻标题（不要加 emoji 前缀，卡片已有颜色区分）",
   "summary": "50-80 字摘要，聚焦核心事实，包含关键数据或人物",
-  "url": "新闻原始链接"
+  "url": "新闻原始链接（必须是真实可访问的 http/https URL）",
+  "date": "YYYY-MM-DD，必须等于北京时间昨天，用于校验，不会显示在卡片上"
 }
 ```
+
+> `date` 字段只用于前置校验，不会出现在飞书卡片内容中。卡片总标题由脚本自动按北京时间今天生成。
 
 ### 完整调用示例
 
 ```bash
-bash <SKILL_DIR>/send-ai-news.sh '{
+bash <SKILL_DIR>/scripts/send-ai-news.sh '{
   "chi": [
-    {"title":"阿里 Qwen3.5 开源","summary":"阿里达摩院发布 Qwen3.5 系列...","url":"https://qwenlm.github.io/..."},
-    {"title":"DeepSeek 新模型发布","summary":"深度求索推出 DeepSeek-V4...","url":"https://..."},
-    {"title":"字节豆包更新","summary":"字节跳动豆包大模型升级...","url":"https://..."}
+    {"title":"阿里 Qwen3.5 开源","summary":"阿里达摩院发布 Qwen3.5 系列...","url":"https://qwenlm.github.io/...","date":"2026-04-08"},
+    {"title":"DeepSeek 新模型发布","summary":"深度求索推出 DeepSeek-V4...","url":"https://...","date":"2026-04-08"},
+    {"title":"字节豆包更新","summary":"字节跳动豆包大模型升级...","url":"https://...","date":"2026-04-08"}
   ],
   "foreign": [
-    {"title":"Google 发布 Gemma 4 开源模型","summary":"Google DeepMind 正式发布 Gemma 4 系列...","url":"https://blog.google/..."},
-    {"title":"OpenAI 完成新一轮融资","summary":"估值突破 8520 亿美元...","url":"https://..."},
-    {"title":"Anthropic 诉讼进展","summary":"...","url":"https://..."}
+    {"title":"Google 发布 Gemma 4 开源模型","summary":"Google DeepMind 正式发布 Gemma 4 系列...","url":"https://blog.google/...","date":"2026-04-08"},
+    {"title":"OpenAI 完成新一轮融资","summary":"估值突破 8520 亿美元...","url":"https://...","date":"2026-04-08"},
+    {"title":"Anthropic 诉讼进展","summary":"...","url":"https://...","date":"2026-04-08"}
   ]
 }'
 ```
 
+### 前置校验（自动执行）
+
+`send-ai-news.sh` 在推送前会强制调用 `scripts/validate-news.py` 做三层校验：
+
+1. **JSON schema**：根结构、必填字段、类型、title(6-40 字)/summary(30-120 字)/URL 格式、URL 与标题唯一性、国内外各 3 条
+2. **日期校验**：每条 `date` 必须等于**北京时间昨天**
+3. **链接可达性**：并发 HEAD/GET，超时 8s，2xx/3xx 算通过；会处理 UA 反爬与 HEAD→GET 降级
+
+**任一层失败，发送立即中止**，错误报告输出到 stderr，应根据报告修正 JSON 后重试。也可单独运行校验器做本地调试：
+
+```bash
+python3 <SKILL_DIR>/scripts/validate-news.py '<JSON>'
+# 从 stdin 读取
+echo '<JSON>' | python3 <SKILL_DIR>/scripts/validate-news.py -
+```
+
 ## 注意事项
 
-- 日期使用昨天的实际日期（今天的前一天）
-- 链接必须是搜索到的真实 URL，不可编造
-- 摘要不要复制标题内容，要补充标题未涵盖的关键信息
+- 所有"昨天/今天"一律按**北京时间 (Asia/Shanghai)** 判断
+- 每条新闻必须包含 `date` 字段，值为北京时间昨天 `YYYY-MM-DD`，否则校验会失败
+- 链接必须是搜索到的真实 URL，不可编造（校验器会做可达性检查，挂掉的链接会被拒绝）
+- 摘要不要复制标题内容，要补充标题未涵盖的关键信息；长度建议 50-80 字，硬上限 120 字
 - 国内外必须各 3 条，如果任一方不足 3 条，必须说明原因并尽量给出次优选择
-- 严格筛选发布日期为昨天的新闻，不接受 2 天前或更早的新闻
+- 严格筛选发布日期为北京时间昨天的新闻，不接受 2 天前或更早、也不接受今天的新闻
 - JSON 中的双引号、换行等特殊字符必须正确转义，避免 shell 解析错误
 - 调用脚本前，先输出完整 JSON 供人工核对，再执行发送
-- 调用脚本前确认 Skill 目录下存在 `.env` 文件且包含 `FEISHU_WEBHOOK` 变量
+- 调用脚本前确认项目根目录下存在 `.env` 文件且包含 `FEISHU_WEBHOOK` 变量
+- **不要**手动给 `validate-news.py` 加 `--skip-url-check` 参数绕过校验，除非在确认离线/应急场景
