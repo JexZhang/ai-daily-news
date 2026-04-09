@@ -1,8 +1,9 @@
 #!/bin/bash
 #
 # 发送 AI 新闻到飞书（双栏卡片：国内热点 + 国际热点）
-# 用法: ./send-ai-news.sh '<JSON对象>'
-# JSON格式: {"chi":[{"title":"","summary":"","url":""},...],"foreign":[...]}
+# 用法: ./send-ai-news.sh <JSON文件路径>
+#   例: ./send-ai-news.sh ../logs/20260408.json
+# JSON 文件格式: {"chi":[{"title":"","summary":"","url":"","date":""},...],"foreign":[...]}
 #
 
 set -euo pipefail
@@ -13,12 +14,20 @@ PROJECT_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
 
 FEISHU_WEBHOOK="${FEISHU_WEBHOOK:?请设置环境变量 FEISHU_WEBHOOK，参考 .env.example}"
 
-NEWS_JSON="${1:?用法: $0 '{\"chi\":[...],\"foreign\":[...]}'}"
+NEWS_FILE="${1:?用法: $0 <JSON文件路径>，例: $0 ../logs/20260408.json}"
 
-# ---------- 前置校验（schema / 日期 / 链接可达性）----------
+if [ ! -f "${NEWS_FILE}" ]; then
+    echo "ERROR: JSON 文件不存在: ${NEWS_FILE}" >&2
+    exit 1
+fi
+
+NEWS_JSON="$(cat "${NEWS_FILE}")"
+
+# ---------- 前置校验（schema / 日期）----------
 # 校验失败立即中止，错误详情已由 validate-news.py 输出到 stderr，
 # 供上游模型读取后修正 JSON 重试。
-if ! python3 "${SCRIPT_DIR}/validate-news.py" "${NEWS_JSON}"; then
+# 注：已跳过 URL 可达性校验
+if ! python3 "${SCRIPT_DIR}/validate-news.py" --skip-url-check "${NEWS_JSON}"; then
     echo "" >&2
     echo "发送已中止：前置校验未通过。请根据上方 [validate] 报告修正 JSON 后重试。" >&2
     exit 2

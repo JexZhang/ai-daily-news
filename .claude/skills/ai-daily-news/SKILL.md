@@ -12,10 +12,12 @@ description: Search the top AI industry news from yesterday (3 international + 3
 1. 按搜索策略多轮搜索，筛选出**北京时间昨天**发布的国内外 AI 热点新闻
 2. 国外 3 条 + 国内 3 条，各自按重要程度排序
 3. 构造 JSON 对象（每条新闻**必须包含 `date` 字段**，值为北京时间昨天 `YYYY-MM-DD`）
-4. 调用本 Skill 目录下的 `scripts/send-ai-news.sh` 推送到飞书
+4. 将 JSON **保存到 `<SKILL_DIR>/logs/[YYYYMMDD].json`**，文件名为北京时间昨天的日期（如 `20260408.json`），作为本次推送的单一数据源
+5. 调用本 Skill 目录下的 `scripts/send-ai-news.sh`，**传入该 JSON 文件路径**进行推送
    - 脚本会**自动先调用 `scripts/validate-news.py`** 做三层校验（schema / 日期 / 链接可达性）
    - 任一校验不通过则立即中止发送，错误详情输出到 stderr
-   - 若校验失败，**根据错误报告修正 JSON 后重试**，不要手动跳过校验
+   - 若校验失败，**直接编辑 `logs/[YYYYMMDD].json` 文件**修正字段后重跑同一条命令即可，无需重新构造 JSON
+   - 不要手动跳过校验
 
 ## 任务要求
 
@@ -63,16 +65,21 @@ description: Search the top AI industry news from yesterday (3 international + 3
 ## 推送到飞书
 
 在推送前，需确保存在飞书 Webhook 配置：
-1. 首先检查项目根目录下的 `.env` 文件是否包含 `FEISHU_WEBHOOK` 变量
+1. 首先检查该skill目录（/.claude/skills/ai-daily-news）下的 `.env` 文件是否包含 `FEISHU_WEBHOOK` 变量
 2. 如果 `.env` 文件不存在或未配置 `FEISHU_WEBHOOK`，则向用户询问获取
 
-完成搜索和筛选后，调用本 scripts 目录下的 `send-ai-news.sh` 脚本：
+完成搜索和筛选后：
+
+1. 将构造好的 JSON **保存到 `<SKILL_DIR>/logs/[YYYYMMDD].json`**，文件名为北京时间昨天的日期（无分隔符，例如 `20260408.json`）
+2. 调用本 scripts 目录下的 `send-ai-news.sh` 脚本，**传入该文件路径**：
 
 ```bash
-bash <SKILL_DIR>/scripts/send-ai-news.sh '<JSON对象>'
+bash <SKILL_DIR>/scripts/send-ai-news.sh <SKILL_DIR>/logs/[YYYYMMDD].json
 ```
 
 其中 `<SKILL_DIR>` 是本 SKILL.md 所在目录。
+
+若校验失败，**直接在 `logs/[YYYYMMDD].json` 中修改对应字段**（例如替换挂掉的链接、缩短超长摘要），然后重新执行同一条命令，不要重新在对话中构造 JSON。
 
 飞书卡片为**左右双栏**布局：左栏国内热点（红色标题），右栏国际热点（蓝色标题）。
 
