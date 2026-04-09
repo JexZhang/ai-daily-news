@@ -12,12 +12,7 @@ description: Search the top AI industry news from yesterday (3 international + 3
 1. 按搜索策略多轮搜索，筛选出**北京时间昨天**发布的国内外 AI 热点新闻
 2. 国外 3 条 + 国内 3 条，各自按重要程度排序
 3. 构造 JSON 对象（每条新闻**必须包含 `date` 字段**，值为北京时间昨天 `YYYY-MM-DD`）
-4. 将 JSON **保存到 `<SKILL_DIR>/logs/[YYYYMMDD].json`**，文件名为北京时间昨天的日期（如 `20260408.json`），作为本次推送的单一数据源
-5. 调用本 Skill 目录下的 `scripts/send-ai-news.sh`，**传入该 JSON 文件路径**进行推送
-   - 脚本会**自动先调用 `scripts/validate-news.py`** 做三层校验（schema / 日期 / 链接可达性）
-   - 任一校验不通过则立即中止发送，错误详情输出到 stderr
-   - 若校验失败，**直接编辑 `logs/[YYYYMMDD].json` 文件**修正字段后重跑同一条命令即可，无需重新构造 JSON
-   - 不要手动跳过校验
+4. 按下文「推送到飞书」一节的说明，将 JSON 写入 `logs/[YYYYMMDD].json` 并调用脚本推送
 
 ## 任务要求
 
@@ -60,26 +55,23 @@ description: Search the top AI industry news from yesterday (3 international + 3
 - 引发公共讨论或政策关注
 - 排除：娱乐八卦、软文广告、未经证实的传闻
 
-**时间要求（严格）**：新闻发布日期必须是昨天。如果只能找到相近日期的新闻，必须注明实际发布日期。
+**时间要求（严格）**：新闻发布日期必须是北京时间下的昨天。
 
 ## 推送到飞书
 
 在推送前，需确保存在飞书 Webhook 配置：
-1. 首先检查该skill目录（/.claude/skills/ai-daily-news）下的 `.env` 文件是否包含 `FEISHU_WEBHOOK` 变量
+1. 首先检查该 skill 目录（`.claude/skills/ai-daily-news`）下的 `.env` 文件是否包含 `FEISHU_WEBHOOK` 变量
 2. 如果 `.env` 文件不存在或未配置 `FEISHU_WEBHOOK`，则向用户询问获取
 
-完成搜索和筛选后：
+完成搜索和筛选后，按以下步骤推送（`<SKILL_DIR>` 指本 SKILL.md 所在目录）：
 
-1. 将构造好的 JSON **保存到 `<SKILL_DIR>/logs/[YYYYMMDD].json`**，文件名为北京时间昨天的日期（无分隔符，例如 `20260408.json`）
-2. 调用本 scripts 目录下的 `send-ai-news.sh` 脚本，**传入该文件路径**：
-
-```bash
-bash <SKILL_DIR>/scripts/send-ai-news.sh <SKILL_DIR>/logs/[YYYYMMDD].json
-```
-
-其中 `<SKILL_DIR>` 是本 SKILL.md 所在目录。
-
-若校验失败，**直接在 `logs/[YYYYMMDD].json` 中修改对应字段**（例如替换挂掉的链接、缩短超长摘要），然后重新执行同一条命令，不要重新在对话中构造 JSON。
+1. 将构造好的 JSON **保存到 `<SKILL_DIR>/logs/[YYYYMMDD].json`**，文件名为北京时间昨天日期的无分隔符格式（如 `20260408.json`），作为本次推送的单一数据源
+2. 调用脚本，**传入该文件路径**：
+   ```bash
+   bash <SKILL_DIR>/scripts/send-ai-news.sh <SKILL_DIR>/logs/[YYYYMMDD].json
+   ```
+3. 脚本会**自动先调用 `scripts/validate-news.py`** 做三层校验（schema / 日期 / 链接可达性），任一层失败则立即中止发送，错误详情输出到 stderr
+4. 校验失败时，**直接编辑 `logs/[YYYYMMDD].json`** 修正对应字段（替换挂掉的链接、缩短超长摘要等），然后重跑同一条命令，不要在对话中重建 JSON；也不要手动跳过校验
 
 飞书卡片为**左右双栏**布局：左栏国内热点（红色标题），右栏国际热点（蓝色标题）。
 
@@ -102,10 +94,12 @@ bash <SKILL_DIR>/scripts/send-ai-news.sh <SKILL_DIR>/logs/[YYYYMMDD].json
 
 > `date` 字段只用于前置校验，不会出现在飞书卡片内容中。卡片总标题由脚本自动按北京时间今天生成。
 
-### 完整调用示例
+### 完整示例
 
-```bash
-bash <SKILL_DIR>/scripts/send-ai-news.sh '{
+`<SKILL_DIR>/logs/20260408.json` 文件内容：
+
+```json
+{
   "chi": [
     {"title":"阿里 Qwen3.5 开源","summary":"阿里达摩院发布 Qwen3.5 系列...","url":"https://qwenlm.github.io/...","date":"2026-04-08"},
     {"title":"DeepSeek 新模型发布","summary":"深度求索推出 DeepSeek-V4...","url":"https://...","date":"2026-04-08"},
@@ -116,7 +110,13 @@ bash <SKILL_DIR>/scripts/send-ai-news.sh '{
     {"title":"OpenAI 完成新一轮融资","summary":"估值突破 8520 亿美元...","url":"https://...","date":"2026-04-08"},
     {"title":"Anthropic 诉讼进展","summary":"...","url":"https://...","date":"2026-04-08"}
   ]
-}'
+}
+```
+
+对应的发送命令：
+
+```bash
+bash <SKILL_DIR>/scripts/send-ai-news.sh <SKILL_DIR>/logs/20260408.json
 ```
 
 ### 前置校验（自动执行）
@@ -137,13 +137,9 @@ echo '<JSON>' | python3 <SKILL_DIR>/scripts/validate-news.py -
 
 ## 注意事项
 
-- 所有"昨天/今天"一律按**北京时间 (Asia/Shanghai)** 判断
-- 每条新闻必须包含 `date` 字段，值为北京时间昨天 `YYYY-MM-DD`，否则校验会失败
+- 所有"昨天/今天"一律按**北京时间 (Asia/Shanghai)** 判断；不接受 2 天前或更早、也不接受今天的新闻
 - 链接必须是搜索到的真实 URL，不可编造（校验器会做可达性检查，挂掉的链接会被拒绝）
 - 摘要不要复制标题内容，要补充标题未涵盖的关键信息；长度建议 50-80 字，硬上限 120 字
 - 国内外必须各 3 条，如果任一方不足 3 条，必须说明原因并尽量给出次优选择
-- 严格筛选发布日期为北京时间昨天的新闻，不接受 2 天前或更早、也不接受今天的新闻
-- JSON 中的双引号、换行等特殊字符必须正确转义，避免 shell 解析错误
-- 调用脚本前，先输出完整 JSON 供人工核对，再执行发送
-- 调用脚本前确认项目根目录下存在 `.env` 文件且包含 `FEISHU_WEBHOOK` 变量
+- `send-ai-news.sh` **只接受 JSON 文件路径**，不再支持通过命令行直接传入 JSON 字符串
 - **不要**手动给 `validate-news.py` 加 `--skip-url-check` 参数绕过校验，除非在确认离线/应急场景
