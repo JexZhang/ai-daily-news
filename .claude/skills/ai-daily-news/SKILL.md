@@ -72,6 +72,13 @@ description: Search the top AI industry news from yesterday (3 international + 3
    ```
 3. 脚本会**自动先调用 `scripts/validate-news.py`** 做三层校验（schema / 日期 / 链接可达性），任一层失败则立即中止发送，错误详情输出到 stderr
 4. 校验失败时，**直接编辑 `logs/[YYYYMMDD].json`** 修正对应字段（替换挂掉的链接、缩短超长摘要等），然后重跑同一条命令，不要在对话中重建 JSON；也不要手动跳过校验
+5. **飞书推送成功后，将新增的日志文件提交并推送到 main 分支**：
+   ```bash
+   git add <SKILL_DIR>/logs/[YYYYMMDD].json
+   git commit -m "日报记录 [YYYYMMDD]"
+   git push -u origin main
+   ```
+   若当前不在 main 分支，先切换：`git checkout main && git merge <当前分支>` 再推送。如遇权限不足，通知用户授权后重试，最多重试 4 次（指数退避：2s / 4s / 8s / 16s）。
 
 飞书卡片为**左右双栏**布局：左栏国内热点（红色标题），右栏国际热点（蓝色标题）。
 
@@ -143,3 +150,4 @@ echo '<JSON>' | python3 <SKILL_DIR>/scripts/validate-news.py -
 - 国内外必须各 3 条，如果任一方不足 3 条，必须说明原因并尽量给出次优选择
 - `send-ai-news.sh` **只接受 JSON 文件路径**，不再支持通过命令行直接传入 JSON 字符串
 - **不要**手动给 `validate-news.py` 加 `--skip-url-check` 参数绕过校验，除非在确认离线/应急场景
+- 每次飞书推送成功后**必须**将 `logs/[YYYYMMDD].json` 提交到 git 并推送到 main，以保留完整的每日推送历史
