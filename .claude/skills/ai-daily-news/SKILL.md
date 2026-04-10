@@ -23,19 +23,31 @@ description: Search the top AI industry news from yesterday (3 international + 3
 - 发布时间必须是北京时间昨天，不接受更早或更晚的新闻
 - 注意海外新闻时区换算：例如美西时间当天深夜发布的新闻，换算到北京时间可能已是次日，应以**北京时间**为准判断
 
+### 政策新闻优先级（最高）
+
+除常规公司/技术动态外，**必须重点关注国内外 AI 政策新闻**，包括但不限于：
+- 各国政府/监管机构发布的 AI 法案、行政令、监管指引、合规要求（如欧盟 AI Act、美国行政令、英国 AI Safety Institute、OECD/UN 相关动态）
+- 中国网信办、工信部、科技部、国家标准委等机构发布的 AI 相关政策、管理办法、备案要求、国家标准
+- 地方政府（如北京、上海、深圳、杭州）AI 产业政策、算力调度、数据要素相关政策
+- 出口管制、芯片制裁、跨境数据等与 AI 强相关的政策变动
+
+**排序规则**：若当天出现**重要政策更新**，必须将其纳入当日 6 条新闻中并置于对应分区（国内/国外）**第 1 位**，其重要程度高于任何公司新闻或模型发布。一天内可以有多条政策新闻占据多个席位。若确实没有重要政策更新，再按公司/技术动态填充。
+
 ## 搜索策略（必须执行多轮搜索）
 
-### 国外搜索（至少 4 轮）
+### 国外搜索（至少 5 轮）
 - `"AI news yesterday" OR "artificial intelligence breakthrough"`
 - `"OpenAI" OR "Google AI" OR "Google DeepMind" OR "Meta AI" OR "Anthropic" OR "xAI" latest`
 - `"open source AI model" OR "AI model release" OR "Llama" OR "Gemma" OR "Mistral" OR "Phi" OR "Command R" OR "DBRX" OR "Grok" OR "Falcon" OR "StableLM" OR "Jamba" OR "OLMo" yesterday`
-- `"AI chip" OR "AI regulation" OR "AI funding" yesterday`
+- `"AI chip" OR "AI funding" OR "AI acquisition" yesterday`
+- **政策专项（必做）**：`"AI regulation" OR "AI Act" OR "AI executive order" OR "AI policy" OR "AI export control" OR "AI safety institute" yesterday`，覆盖 EU、US、UK、OECD、UN 等监管动态
 
-### 国内搜索（至少 4 轮，必须覆盖中国 AI 热点）
+### 国内搜索（至少 5 轮，必须覆盖中国 AI 热点）
 - `"中国 AI 新闻 昨天" OR "人工智能 最新动态 昨日"`
 - `"阿里 Qwen" OR "DeepSeek" OR "字节 豆包" OR "百度 文心" OR "腾讯 混元" OR "智谱 GLM" OR "月之暗面 Kimi" OR "零一万物 Yi" OR "百川 Baichuan" OR "MiniMax" OR "阶跃星辰" 昨日`
 - `"国产大模型 发布" OR "中国 开源模型" OR "国内 AI 新模型" 昨日`
-- `"中国 AI 融资" OR "中国 AI 政策" OR "国产 AI 芯片" OR "华为昇腾" OR "寒武纪" 昨日`
+- `"中国 AI 融资" OR "国产 AI 芯片" OR "华为昇腾" OR "寒武纪" 昨日`
+- **政策专项（必做）**：`"网信办 AI" OR "工信部 人工智能" OR "科技部 人工智能" OR "生成式人工智能 管理办法" OR "大模型 备案" OR "人工智能 国家标准" OR "北京 上海 深圳 杭州 AI 政策" 昨日`
 
 ### 补充验证搜索（至少 1 轮）
 回顾以上搜索结果，确保：
@@ -54,6 +66,8 @@ description: Search the top AI industry news from yesterday (3 international + 3
 - 涉及头部公司或重大技术突破
 - 引发公共讨论或政策关注
 - 排除：娱乐八卦、软文广告、未经证实的传闻
+
+**政策优先规则（硬性）**：若当天出现重要 AI 政策更新（立法、行政令、监管意见、备案要求、国家标准、出口管制等），**必须**优先纳入，且在所属分区（国内/国外）排序置顶，重要程度高于任何公司新闻、融资或模型发布。
 
 **时间要求（严格）**：新闻发布日期必须是北京时间下的昨天。
 
