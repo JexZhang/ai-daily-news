@@ -1,0 +1,42 @@
+{
+  "chi": [
+    {
+      "title": "阿里千问开源全球霸榜，下载量近10亿次，中国份额超越美国",
+      "summary": "美国AI机构报告，阿里云Qwen系列已占全球开源模型下载量逾50%，Hugging Face月下载超越Meta等九大厂商之和。中国开源模型月调用份额（41%）首超美国（36.5%），OpenRouter调用榜冠军连续多周被国产包揽。",
+      "url": "https://finance.sina.com.cn/tech/roll/2026-04-11/doc-inhuauvf9648437.shtml",
+      "date": "2026-04-11"
+    },
+    {
+      "title": "滴滴自动驾驶L4全栈技术自主可控，新一代Robotaxi R2启动测试",
+      "summary": "在智能电动汽车发展高层论坛，滴滴自动驾驶CEO张博宣布十年积累后已实现L4全栈核心技术自主可控。与广汽埃安联合打造的新一代Robotaxi R2已交付并开启道路测试，计划2026年底前在多区域推出接近有人驾驶体验的商业出行服务。",
+      "url": "https://www.chinanews.com.cn/cj/2026/04-11/10602208.shtml",
+      "date": "2026-04-11"
+    },
+    {
+      "title": "中国具身模型多项全球第一，灵初10万小时数据将机器人反应压缩至100ms",
+      "summary": "量子位报道，具身AI企业灵初发布预训练模型，以5417小时真机数据加95472小时人类操作数据训练，覆盖294种场景，多项具身基准全球第一。技术优化将机器人反应时间从2.2秒压缩至100毫秒，开启人类数据驱动具身智能新纪元。",
+      "url": "https://www.qbitai.com/2026/04/399417.html",
+      "date": "2026-04-11"
+    }
+  ],
+  "foreign": [
+    {
+      "title": "印度押注AI主权：政府资助12家机构，Sarvam AI融资3.5亿美元",
+      "summary": "印度政府资助12家机构开发主权AI大模型；Sarvam AI完成Bessemer领投、NVIDIA与亚马逊参投的3.5亿美元融资，估值15.5亿美元创印度纪录。微软175亿美元海得拉巴数据中心将于2026年中上线。",
+      "url": "https://startuparticle.com/technology/2026/04/indian-ai-startup-sarvam-achieves-1-5-billion-valuation-secures-funding/",
+      "date": "2026-04-11"
+    },
+    {
+      "title": "Anthropic发布Claude Mythos，联合科技巨头修复全球零日漏洞",
+      "summary": "Anthropic最强模型Claude Mythos Preview自主发现数千零日漏洞，联合AWS、谷歌、微软等12家机构成立Project Glasswing安全联盟，承诺1亿美元信用额度修复互联网漏洞，90天内公开修复进展。",
+      "url": "https://techcrunch.com/2026/04/07/anthropic-mythos-ai-model-preview-security/",
+      "date": "2026-04-11"
+    },
+    {
+      "title": "Perplexity转型AI代理，ARR单月暴增50%至4.5亿美元",
+      "summary": "据英国《金融时报》，Perplexity转向AI代理后，3月ARR骤升50%至4.5亿美元，月活用户逾1亿。旗舰产品Computer调用19个前沿模型执行多步骤工作流，企业客户达数万家，订阅加使用量定价成为AI商业化新范式。",
+      "url": "https://www.pymnts.com/artificial-intelligence-2/2026/perplexitys-shift-to-ai-agents-boosts-revenue-50/",
+      "date": "2026-04-11"
+    }
+  ]
+}
