@@ -274,3 +274,80 @@ else
     echo "ERROR: $(cat /tmp/feishu_response.json)"
     exit 1
 fi
+
+# ---------- 推送成功后自动将日志提交到 main ----------
+# 本地 main 分支：直接 commit + push origin main。
+# Claude Code 云端定时任务运行于 claude/* 工作分支，对 main 只读，
+# 此时改走：推工作分支 → gh 开 PR → 自动合并到 main。
+# 全流程由脚本控制，不依赖模型判断。
+REPO_ROOT="$(cd "${PROJECT_DIR}" && git rev-parse --show-toplevel 2>/dev/null || true)"
+if [ -z "${REPO_ROOT}" ]; then
+    echo "WARN: 非 git 仓库，跳过日志提交" >&2
+    exit 0
+fi
+
+cd "${REPO_ROOT}"
+
+# 将 NEWS_FILE 转为相对仓库根的路径
+NEWS_FILE_ABS="$(cd "$(dirname "${NEWS_FILE}")" && pwd)/$(basename "${NEWS_FILE}")"
+NEWS_FILE_REL="${NEWS_FILE_ABS#${REPO_ROOT}/}"
+BASENAME="$(basename "${NEWS_FILE}" .json)"
+COMMIT_MSG="日报记录 ${BASENAME}"
+BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+
+git add "${NEWS_FILE_REL}"
+if git diff --cached --quiet; then
+    echo "INFO: ${NEWS_FILE_REL} 无变更，跳过提交"
+    exit 0
+fi
+git commit -m "${COMMIT_MSG}"
+
+push_with_retry() {
+    local delay=2 i
+    for i in 1 2 3 4; do
+        if git push "$@"; then
+            return 0
+        fi
+        echo "WARN: git push 失败（第 ${i} 次），${delay}s 后重试" >&2
+        sleep "${delay}"
+        delay=$((delay * 2))
+    done
+    return 1
+}
+
+if [ "${BRANCH}" = "main" ]; then
+    push_with_retry origin main || { echo "ERROR: 推送 main 失败" >&2; exit 1; }
+    echo "日志已提交到 main"
+    exit 0
+fi
+
+# 云端工作分支场景
+if ! push_with_retry -u origin "${BRANCH}"; then
+    echo "ERROR: 推送工作分支 ${BRANCH} 失败" >&2
+    exit 1
+fi
+
+if ! command -v gh >/dev/null 2>&1; then
+    echo "ERROR: 未找到 gh CLI，无法自动合并到 main；请手动合并分支 ${BRANCH}" >&2
+    exit 1
+fi
+
+PR_URL="$(gh pr create \
+    --base main \
+    --head "${BRANCH}" \
+    --title "${COMMIT_MSG}" \
+    --body "自动生成：每日 AI 日报推送日志" 2>/dev/null || true)"
+if [ -z "${PR_URL}" ]; then
+    PR_URL="$(gh pr view "${BRANCH}" --json url -q .url 2>/dev/null || true)"
+fi
+if [ -z "${PR_URL}" ]; then
+    echo "ERROR: 无法创建或定位 PR" >&2
+    exit 1
+fi
+echo "PR: ${PR_URL}"
+
+if ! gh pr merge "${PR_URL}" --squash --auto --delete-branch; then
+    echo "ERROR: PR 自动合并失败，请手动处理：${PR_URL}" >&2
+    exit 1
+fi
+echo "日志已通过 PR 合并到 main"

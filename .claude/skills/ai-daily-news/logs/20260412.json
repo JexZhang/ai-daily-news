@@ -1,0 +1,42 @@
+{
+  "chi": [
+    {
+      "title": "宇树H1冲刺破10m/s，逼近博尔特人类纪录",
+      "summary": "宇树科技公布H1人形机器人实测视频，百米冲刺峰值速度突破10.1米/秒，相当于10秒100米，逼近博尔特9.58秒世界纪录；宇树三支参赛队将角逐4月19日北京亦庄人形机器人半程马拉松。",
+      "url": "https://sputniknews.cn/20260412/1070733489.html",
+      "date": "2026-04-12"
+    },
+    {
+      "title": "2026中国具身智能大会落幕，发布白皮书与十五大方向",
+      "summary": "中国人工智能学会主办的CEAI 2026于4月10-12日在合肥举行，1500余名专家出席；大会发布具身智能白皮书，提出十五大重点研究方向，安徽大学机器人学院等三所新研究机构同期揭牌。",
+      "url": "https://finance.sina.com.cn/jjxw/2026-04-12/doc-inhuhmvq6092403.shtml",
+      "date": "2026-04-12"
+    },
+    {
+      "title": "工信部将发布AI+高价值场景，制造业AI应用率超30%",
+      "summary": "工信部科技司副司长在武汉人工智能产业联盟全体会议上宣布，规上制造业企业AI应用率已超30%，工信部将发布一批人工智能+高价值场景，并实施人形机器人实景实训等三项专项行动。",
+      "url": "http://finance.people.com.cn/n1/2026/0412/c1004-40699571.html",
+      "date": "2026-04-12"
+    }
+  ],
+  "foreign": [
+    {
+      "title": "Claude Mythos自主发现各大OS数千零日漏洞",
+      "summary": "Anthropic携手苹果、谷歌、微软、英伟达等12家企业启动Project Glasswing，以Claude Mythos自主发现全主流OS与浏览器数千个零日漏洞，最老漏洞存在27年，Mythos不向公众开放。",
+      "url": "https://www.satellitetoday.com/cybersecurity/2026/04/12/anthropic-launches-project-glasswing-for-cybersecurity/",
+      "date": "2026-04-12"
+    },
+    {
+      "title": "Meta Muse Spark上市首周医疗AI基准居首，股价累涨近10%",
+      "summary": "Meta超级智能实验室首款模型Muse Spark智能指数52，落后Gemini 3.1 Pro与GPT-5.4（均57），但HealthBench Hard以42.8居所有前沿模型首位；发布一周Meta股价累涨约10%。",
+      "url": "https://247wallst.com/investing/2026/04/12/meta-platforms-finally-releases-muse-spark-is-the-ai-model-worth-the-wait/",
+      "date": "2026-04-12"
+    },
+    {
+      "title": "OpenAI「AI新政」因奥特曼住所遭袭事件备受关注",
+      "summary": "OpenAI发布政策文件倡议设立公共财富基金、征收机器人税及推行四天工作制；4月10日一名男子向奥特曼旧金山住所投燃烧瓶后被捕，令这份AI社会契约提案更显迫切。",
+      "url": "https://sfstandard.com/2026/04/12/openai-wants-new-deal-ai-attack-sam-altman-s-home-made-urgent/",
+      "date": "2026-04-12"
+    }
+  ]
+}
