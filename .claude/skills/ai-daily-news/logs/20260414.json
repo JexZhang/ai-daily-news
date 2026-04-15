@@ -1,0 +1,42 @@
+{
+  "chi": [
+    {
+      "title": "世界互联网大会亚太峰会AI安全治理论坛在港举行",
+      "summary": "2026年世界互联网大会亚太峰会4月13日在香港开幕，14日举办AI安全治理专项论坛，聚焦AI治理框架2.0、智能体风险管控及国际合规标准，全球政要、国际组织与产业领袖共同探讨AI治理亚太方案。",
+      "url": "https://finance.sina.com.cn/wm/2026-04-14/doc-inhunawe4208086.shtml",
+      "date": "2026-04-14"
+    },
+    {
+      "title": "月之暗面Kimi上线编程专用模型K2.6-code-preview",
+      "summary": "月之暗面悄然在Kimi控制台上线编程专用新模型K2.6-code-preview并向全体Kimi Code订阅用户开放，相比K2.5显著提升推理深度与多步Agent规划能力，在SWE-Bench等国际顶级编程基准测试中竞争力大幅跃升。",
+      "url": "https://www.80aj.com/2026/04/14/kimi-k2-6-code-preview/",
+      "date": "2026-04-14"
+    },
+    {
+      "title": "MiniMax开源三款AI音乐技能，赋能Agent生态",
+      "summary": "MiniMax开源三款AI音乐技能（音乐生成/角色演唱/歌单推荐），支持AI Agent一键完成音乐全流程，兼容Claude Code等主流框架，打通MMX-CLI多模态生态最后一环。",
+      "url": "https://github.com/MiniMax-AI/skills",
+      "date": "2026-04-14"
+    }
+  ],
+  "foreign": [
+    {
+      "title": "英国AISI：Claude Mythos首个完成32步企业网络攻击的AI",
+      "summary": "英国AI安全研究所评估显示Claude Mythos Preview成为首个全自主完成32步企业网络渗透测试的AI，CTF成功率73%，还发现27年历史OpenBSD漏洞，Anthropic因此暂停公开发布。",
+      "url": "https://www.aisi.gov.uk/blog/our-evaluation-of-claude-mythos-previews-cyber-capabilities",
+      "date": "2026-04-14"
+    },
+    {
+      "title": "Anthropic任命诺华CEO Vas Narasimhan加入董事会",
+      "summary": "Anthropic宣布由长期利益信托任命诺华制药CEO Vas Narasimhan为董事会成员，为首位来自制药行业的董事，标志公司加速布局医疗AI赛道，同时被视为估值852亿美元的Anthropic积极筹备IPO的重要治理信号。",
+      "url": "https://www.anthropic.com/news/narasimhan-board",
+      "date": "2026-04-14"
+    },
+    {
+      "title": "斯坦福2026年AI指数报告：中美AI模型差距缩至2.7%",
+      "summary": "斯坦福HAI发布423页年度AI指数报告，显示截至2026年3月美国顶级AI模型仅领先中国2.7%，生成式AI三年内渗透全球53%人口，远超PC与互联网；同时警示全球AI透明度从58分跌至40分，监管滞后问题严峻。",
+      "url": "https://aiindex.stanford.edu/report/",
+      "date": "2026-04-14"
+    }
+  ]
+}
