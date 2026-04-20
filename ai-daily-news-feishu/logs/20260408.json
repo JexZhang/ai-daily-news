@@ -1,0 +1,42 @@
+{
+    "chi": [
+        {
+            "title": "阿里AI组织大重构：李飞飞出任阿里云CTO，通义升级为大模型事业部",
+            "summary": "阿里巴巴CEO吴泳铭发布内部信，宣布新设集团技术委员会由吴泳铭任组长，AI科学家李飞飞正式出任阿里云CTO，通义实验室升级为通义大模型事业部，标志着阿里AI战略进入组织深度整合阶段。",
+            "url": "https://finance.sina.com.cn/roll/2026-04-08/doc-inhtuupx6464439.shtml",
+            "date": "2026-04-08"
+        },
+        {
+            "title": "智谱发布GLM-5.1：全球最强开源模型，支持8小时自主工作并提价10%",
+            "summary": "智谱正式发布旗舰开源模型GLM-5.1，编程能力达SWE-bench Pro全球第三、 国产第一，全球首个验证8小时持续自主工作能力；同步提价10%，港股当日涨近18%，市值突破400亿港元。",
+            "url": "https://www.nbd.com.cn/articles/2026-04-08/4328922.html",
+            "date": "2026-04-08"
+        },
+        {
+            "title": "DeepSeek上线专家模式：分级产品策略为V4发布铺路",
+            "summary": "DeepSeek网页端深夜推出\u201c快速模式\u201d与\u201c专家模式\u201d分级设计，专家模式支持深度思考与复杂推理，擅长高难度数学、代码任务；此次升级被视为V4大模型灰度前的关键产品布局，标志着DeepSeek从纯免费向精细化运营转型。",
+            "url": "https://finance.sina.com.cn/tech/2026-04-08/doc-inhttxke2894022.shtml",
+            "date": "2026-04-08"
+        }
+    ],
+    "foreign": [
+        {
+            "title": "Meta首发Muse Spark：超级智能实验室亮相，直面OpenAI竞争",
+            "summary": "Meta正式发布Muse Spark（代号Avocado），为Meta Superintelligence Labs首款模型，聘请Scale AI创始人后首个成果，旨在与OpenAI、Anthropic、Google争夺前沿AI市场。",
+            "url": "https://www.cnbc.com/2026/04/08/meta-debuts-first-major-ai-model-since-14-billion-deal-to-bring-in-alexandr-wang.html",
+            "date": "2026-04-08"
+        },
+        {
+            "title": "Anthropic Claude Mythos发现主流OS和浏览器数千个零日漏洞",
+            "summary": "Anthropic发布Claude Mythos Preview，可自主发现主流OS与浏览器零日漏洞并构建利用链；同步启动Project Glasswing，与Amazon、Apple、Google等联合投入1亿美元保障关键软件安全。",
+            "url": "https://www.helpnetsecurity.com/2026/04/08/anthropic-claude-mythos-preview-identify-vulnerabilities/",
+            "date": "2026-04-08"
+        },
+        {
+            "title": "Google更新Gemini安全功能：强制接入心理危机支持并承诺3000万美元",
+            "summary": "Google面对Gemini心理健康事故诉讼压力，为Gemini推出\u201c一键接入危机热线\u201d功能，检测到自杀或自伤相关对话时自动弹出；同步宣布Google.org三年内向全球危机热线投入3000万美元，并限制模型拟人化表达。",
+            "url": "https://www.engadget.com/ai/google-updates-geminis-mental-health-safeguards-173834569.html",
+            "date": "2026-04-08"
+        }
+    ]
+}

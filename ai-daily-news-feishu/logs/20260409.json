@@ -1,0 +1,42 @@
+{
+  "chi": [
+    {
+      "title": "智谱发布旗舰模型GLM-5.1并提价10%",
+      "summary": "智谱发布旗舰GLM-5.1，744B MoE架构（40B激活参数），基于华为昇腾910B芯片训练，SWE-bench Pro得58.4分超越Claude Opus 4.6，持续工作8小时；API提价10%，编程定价首次追平国际头部厂商。",
+      "url": "https://finance.sina.com.cn/tech/digi/2026-04-09/doc-inhtvfcw1416827.shtml",
+      "date": "2026-04-09"
+    },
+    {
+      "title": "阿里HappyHorse-1.0匿名屠榜视频生成赛道",
+      "summary": "阿里HappyHorse-1.0匿名登顶Artificial Analysis视频榜单，文生视频Elo 1374、图生视频Elo 1410刷新平台纪录，领先字节Seedance 2.0。模型由前快手可灵负责人张迪主导，计划完全开源。",
+      "url": "https://finance.sina.com.cn/roll/2026-04-09/doc-inhtxkaw0821068.shtml",
+      "date": "2026-04-09"
+    },
+    {
+      "title": "腾讯云宣布AI算力等产品5月起涨价5%",
+      "summary": "腾讯云宣布2026年5月9日起AI算力、容器服务、EMR等产品刊例价上调5%，因全球算力需求激增致硬件供应链成本大幅攀升。这是继阿里云、百度智能云之后，国内主要云厂商的新一轮集体调价。",
+      "url": "https://www.ithome.com/0/937/363.htm",
+      "date": "2026-04-09"
+    }
+  ],
+  "foreign": [
+    {
+      "title": "Meta推出首款专有闭源模型Muse Spark",
+      "summary": "Meta于4月9日发布专有闭源模型Muse Spark，出自Meta超智能实验室，多模态能力比肩OpenAI与Google，彻底放弃开源立场。模型已上线Meta.ai，将陆续接入WhatsApp、Instagram、Facebook等平台。",
+      "url": "https://about.fb.com/news/2026/04/introducing-muse-spark-meta-superintelligence-labs/",
+      "date": "2026-04-09"
+    },
+    {
+      "title": "Anthropic发布Claude Managed Agents托管平台",
+      "summary": "Anthropic推出Claude Managed Agents公测版，为企业提供含持久记忆、沙盒执行、权限控制的托管Agent运行时，每会话小时费0.08美元，部署效率提升10倍。Notion、Rakuten、Sentry率先接入。",
+      "url": "https://www.helpnetsecurity.com/2026/04/09/claude-managed-agents-bring-execution-and-control-to-ai-agent-workflows/",
+      "date": "2026-04-09"
+    },
+    {
+      "title": "OpenAI发布儿童安全蓝图应对AI内容滥用",
+      "summary": "OpenAI发布《儿童安全蓝图》，就AI生成儿童性剥削内容问题提出立法、举报机制与技术防护三方面框架建议，联合NCMEC等机构共同推进。IWF数据显示2025年上半年相关举报超8000起，同比增长14%。",
+      "url": "https://openai.com/index/introducing-child-safety-blueprint/",
+      "date": "2026-04-09"
+    }
+  ]
+}

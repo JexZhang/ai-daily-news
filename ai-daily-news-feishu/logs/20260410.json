@@ -1,0 +1,42 @@
+{
+  "chi": [
+    {
+      "title": "梁文锋透露DeepSeek V4四月下旬发布",
+      "summary": "深度求索创始人梁文锋内部透露，DeepSeek V4将于四月下旬正式发布，采用万亿参数规模和百万级上下文，已完成华为昇腾等国产芯片深度适配，将以Apache 2.0协议开源。此前因国产算力适配与架构重构多次延期，原计划春节前后推出。",
+      "url": "https://finance.sina.com.cn/tech/2026-04-10/doc-inhtywcx8067278.shtml",
+      "date": "2026-04-10"
+    },
+    {
+      "title": "阿里认领AI视频模型HappyHorse登顶全球榜首",
+      "summary": "阿里认领神秘AI视频模型HappyHorse-1.0，匿名参评后在Artificial Analysis四项视频生成榜夺冠，ELO得分1333，超越字节Seedance 2.0，采用1500亿参数架构，API将于4月30日开放。",
+      "url": "https://www.cnbc.com/2026/04/10/alibaba-happyhorse-ai-video-model-benchmark-reveal.html",
+      "date": "2026-04-10"
+    },
+    {
+      "title": "百度伐谋Agent 2.0再登顶MLE-Bench超越OpenAI",
+      "summary": "百度智能云伐谋Agent 2.0再登顶MLE-Bench，得分超越搭载Claude Opus 4.6的同类智能体，覆盖75个Kaggle真实工程任务，正式版将于5月Create大会发布，已有数千家企业使用。",
+      "url": "https://finance.sina.com.cn/jjxw/2026-04-10/doc-inhtznzw0162290.shtml",
+      "date": "2026-04-10"
+    }
+  ],
+  "foreign": [
+    {
+      "title": "美联储财政部急召华尔街CEO会商Anthropic Mythos威胁",
+      "summary": "美国财政部长贝森特与美联储主席鲍威尔紧急召集华尔街银行CEO，就Anthropic Mythos对金融系统的网络安全威胁发出警告。Mythos已在各大系统和浏览器中发现数千零日漏洞，加拿大当日同步召集六大银行开会应对。",
+      "url": "https://www.cnbc.com/2026/04/10/powell-bessent-us-bank-ceos-anthropic-mythos-ai-cyber.html",
+      "date": "2026-04-10"
+    },
+    {
+      "title": "xAI起诉科罗拉多AI法案称限制Grok言论自由",
+      "summary": "马斯克旗下xAI向联邦法院起诉科罗拉多州，要求阻止将于6月30日生效的AI反歧视法案SB 24-205。xAI主张该法强制规定AI系统输出内容、限制Grok自由表达，违反宪法第一修正案，并警告各州分散立法将阻碍AI创新与市场竞争。",
+      "url": "https://thehill.com/policy/technology/5825076-xai-sues-colorado-ai-regulation/",
+      "date": "2026-04-10"
+    },
+    {
+      "title": "加拿大银行召集六大银行紧急会商Anthropic Mythos风险",
+      "summary": "加拿大央行联合国内六大银行及联邦监管机构召开紧急会议，专项讨论Anthropic Mythos Preview对金融基础设施的网络安全威胁，成为继美国之后第二个在官方层面正式应对该问题的国家，全球金融监管体系进入AI安全警戒状态。",
+      "url": "https://www.bloomberg.com/news/articles/2026-04-10/bank-of-canada-major-lenders-meet-on-anthropic-ai-cyber-risk",
+      "date": "2026-04-10"
+    }
+  ]
+}
